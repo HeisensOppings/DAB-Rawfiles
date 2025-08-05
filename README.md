@@ -33,7 +33,7 @@ Raw files (ETI format) available at:
 - `2024-10-12_120821_9C` [Download](https://github.com/HeisensOppings/DAB-Rawfiles/releases/download/Assets/2024-10-12_120821_9C.raw) u8 -- DAB+ audio
 - `2025-01-25_190729_6B` [Download](https://www.dropbox.com/scl/fi/gg1wd9f4usuln8lad864c/2025-01-25_190729_6B.uff?rlkey=whgjv6uyew3hwnq8ht09m75nf&e=1&st=i1g86hvn&dl=0) u8 -- DAB+ audio, SLS
 - `2025-04-29_204949_12C` [Download](https://github.com/HeisensOppings/DAB-Rawfiles/releases/download/Assets/2025-04-29_204949_12C.raw) u8 -- DAB+ audio, SLS
-- `2025-07-18_205828_12C` [Download](https://github.com/HeisensOppings/DAB-Rawfiles/releases/download/Assets/2025-07-18_205828_12C.uff) s16be -- DAB+ audio, SLS
+- `2025-07-18_205828_12C` test [Download](https://github.com/HeisensOppings/DAB-Rawfiles/releases/download/Assets/2025-07-18_205828_12C.uff) s16be -- DAB+ audio, SLS
 - `baseband_9A_0` [Download](https://github.com/williamyang98/DAB-Radio/releases/download/raw-iq-data/sydney_baseband_9A_0.zip) u8 -- DAB+ audio, SLS
 - `baseband_9B_0` [Download](https://github.com/williamyang98/DAB-Radio/releases/download/raw-iq-data/sydney_baseband_9B_0.zip) u8 -- DAB+ audio, SLS
 - `baseband_9C_0` [Download](https://github.com/williamyang98/DAB-Radio/releases/download/raw-iq-data/sydney_baseband_9C_0.zip) u8 -- DAB+ audio, SLS
@@ -42,4 +42,16 @@ Raw files (ETI format) available at:
 - `SDRTouch_20180124_022829_220352kHz_IQ` [Download](https://www.dropbox.com/s/7i1pj8grlox3fi7/SDRTouch_20180124_022829_220352kHz_IQ.wav?dl=0) u8 -- DAB audio, EPG
 - `trial_6B` [Download](https://github.com/HeisensOppings/DAB-Rawfiles/releases/download/Assets/trial_6B.raw) s16be -- DAB+ audio, SLS
 ---
-*Note: Format (u8, s8, s16le, s16be) see [welle.io](https://www.welle.io/devices/rawfile)*
+*Note: Format (u8, s8, s16le, s16be) — see [welle.io](https://www.welle.io/devices/rawfile)*
+
+---
+
+##### Format Conversion
+
+To convert between different IQ sample formats, it's recommended to use [`sox`](https://sourceforge.net/projects/sox/).
+
+**Example:** Convert a raw IQ file from `s16be` to `u8` format:
+```
+sox -r 2048000 -c 2 -b 16 -e signed-integer -L -t raw dab.2021-12-16T14_26_44_664.wav \
+    -r 2048000 -c 2 -b 8 -e unsigned-integer -t raw output_u8.raw
+```
